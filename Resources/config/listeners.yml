@@ -1,0 +1,16 @@
+parameters:
+    kphoen.state_machine.listener.persistence.class: KPhoen\DoctrineStateMachineBehavior\Listener\PersistenceListener
+    kphoen.state_machine.listener.injection.class: KPhoen\DoctrineStateMachineBehavior\Listener\InjectionListener
+
+services:
+    kphoen.state_machine.listener.persistence:
+        class:      %kphoen.state_machine.listener.persistence.class%
+        arguments:  [ @kphoen.state_machine.factory ]
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    kphoen.state_machine.listener.injection:
+        class:      %kphoen.state_machine.listener.injection.class%
+        arguments:  [ @kphoen.state_machine.factory ]
+        tags:
+            - { name: doctrine.event_subscriber }

@@ -1,0 +1,22 @@
+{
+    "name": "kphoen/doctrine-state-machine-bundle",
+    "description": "Integrates DoctrineStateMachineBehavior in Symfony2.",
+    "keywords": ["behavior", "doctrine2", "extension", "statemachine"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kévin Gomez",
+            "email": "contact@kevingomez.fr",
+            "homepage": "http://www.kevingomez.fr/"
+        }
+    ],
+    "require": {
+        "symfony/symfony": ">=2.1.0",
+        "kphoen/doctrine-state-machine": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "KPhoen\\DoctrineStateMachineBundle": "" }
+    },
+    "target-dir": "KPhoen/DoctrineStateMachineBundle"
+}

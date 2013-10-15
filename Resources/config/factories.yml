@@ -1,0 +1,18 @@
+parameters:
+    kphoen.state_machine.factory.class: Finite\Factory\SymfonyDependencyInjectionFactory
+    kphoen.state_machine.array_loader.class: Finite\Loader\ArrayLoader
+    kphoen.state_machine.class: KPhoen\DoctrineStateMachineBehavior\StateMachine\StateMachine
+
+services:
+    kphoen.state_machine.factory:
+        class: %kphoen.state_machine.factory.class%
+        arguments: [ @service_container, 'kphoen.state_machine' ]
+
+    kphoen.state_machine.array_loader:
+        class:      %kphoen.state_machine.array_loader.class%
+        arguments:  [ ~ ]
+        public:     false
+
+    kphoen.state_machine:
+        class: %kphoen.state_machine.class%
+        scope: prototype
