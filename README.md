@@ -57,6 +57,104 @@ column to use.
 implementation, you can use the `StatefulTrait` that comes bundled with the
 behavior.
 
+The `Article` entity below is ready to be used as a `Stateful` entity.
+
+```php
+<?php
+
+namespace Acme\FooBundle\Entity;
+
+use KPhoen\DoctrineStateMachineBehavior\Entity\Stateful;
+use KPhoen\DoctrineStateMachineBehavior\Entity\StatefulTrait;
+
+class Article implements Stateful
+{
+    use StatefulTrait;
+
+    /**
+     * New article, not yet reviewed by anyone.
+     */
+    const STATE_NEW = 'new';
+
+    /**
+     * Article reviewed once, need another review to be validated.
+     */
+    const STATE_FIRST_REVIEW = 'reviewed';
+
+    /**
+     * Article reviewed by at least two person.
+     */
+    const STATE_ACCEPTED = 'accepted';
+
+    /**
+     * Article validated and published.
+     */
+    const STATE_PUBLISHED = 'published';
+
+    /**
+     * Article rejected.
+     */
+    const STATE_REJECTED = 'rejected';
+
+
+    /**
+     * define your fields here
+     */
+
+
+    /**
+     * @var string
+     */
+    protected $state = self::STATE_NEW;
+
+
+    /**
+     * Set state
+     *
+     * @param  string  $state
+     * @return Article
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Sets the object state.
+     * Used by the StateMachine behavior
+     *
+     * @return string
+     */
+    public function getFiniteState()
+    {
+        return $this->getState();
+    }
+
+    /**
+     * Sets the object state.
+     * Used by the StateMachine behavior
+     *
+     * @param string $state
+     */
+    public function setFiniteState($state)
+    {
+        return $this->setState($state);
+    }
+}
+```
+
 
 ## Installation
 
