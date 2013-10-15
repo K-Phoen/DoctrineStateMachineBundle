@@ -12,15 +12,15 @@ The state machine implementation used is [Finite](https://github.com/yohang/Fini
 documentation](https://github.com/yohang/Finite) for more details about it.
 
 All `Stateful` entities must implement the following API:
-    * `setStateMachine(StateMachine $stateMachine)` ;
-    * `getStateMachine()` ;
-    * `getFiniteState()` ;
-    * `setFiniteState($state)` ;
+  * `setStateMachine(StateMachine $stateMachine)` ;
+  * `getStateMachine()` ;
+  * `getFiniteState()` ;
+  * `setFiniteState($state)`.
 
 Entities using the `StatefulTrait` see the `setStateMachine` and
 `getStateMachine` methods implemented and gain access to the following methods:
-    * `can($transition)`: indicating if the given transition is allowed ;
-    * and magic methods for each available transition (ie: `accept()`, `reject()`, etc)
+  * `can($transition)`: indicating if the given transition is allowed ;
+  * and magic methods for each available transition (ie: `accept()`, `reject()`, etc).
 
 
 ## Configuration
