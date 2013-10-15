@@ -23,6 +23,7 @@ class KPhoenDoctrineStateMachineExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('factories.yml');
         $loader->load('listeners.yml');
+        $loader->load('twig.yml');
 
         // register state machine loaders
         $this->registerStateMachines($config['state_machines'], $container);

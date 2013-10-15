@@ -22,6 +22,27 @@ Entities using the `StatefulTrait` see the `setStateMachine` and
   * `can($transition)`: indicating if the given transition is allowed ;
   * and magic methods for each available transition (ie: `accept()`, `reject()`, etc).
 
+The bundle also exposes a few Twig helpers:
+
+```jinja
+{# your template ... #}
+
+{% if article|can('reject') %}
+    <a class="btn btn-danger" href="{{ path('article_delete', article) }}">
+        <i class="icon-trash"></i>
+        {{ 'link_reject'|trans }}
+    </a>
+{% endif %}
+
+{# this is strictly equivalent #}
+{% if can(article, 'reject') %}
+    <a class="btn btn-danger" href="{{ path('article_delete', article) }}">
+        <i class="icon-trash"></i>
+        {{ 'link_reject'|trans }}
+    </a>
+{% endif %}
+```
+
 
 ## Configuration
 
