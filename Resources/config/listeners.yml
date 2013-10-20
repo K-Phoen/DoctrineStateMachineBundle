@@ -1,8 +1,10 @@
 parameters:
     kphoen.state_machine.listener.persistence.class: KPhoen\DoctrineStateMachineBehavior\Listener\PersistenceListener
     kphoen.state_machine.listener.injection.class: KPhoen\DoctrineStateMachineBehavior\Listener\InjectionListener
+    kphoen.state_machine.listener.callbacks.class: KPhoen\DoctrineStateMachineBehavior\Listener\StatefulEntitiesCallbacksListener
 
 services:
+    # doctrine listeners
     kphoen.state_machine.listener.persistence:
         class:      %kphoen.state_machine.listener.persistence.class%
         arguments:  [ @kphoen.state_machine.factory ]
@@ -14,3 +16,9 @@ services:
         arguments:  [ @kphoen.state_machine.factory ]
         tags:
             - { name: doctrine.event_subscriber }
+
+    # finite listeners
+    kphoen.state_machine.listener.callbacks:
+        class:      %kphoen.state_machine.listener.callbacks.class%
+        tags:
+            - { name: kernel.event_subscriber }
