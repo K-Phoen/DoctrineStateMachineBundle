@@ -7,6 +7,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use KPhoen\DoctrineStateMachineBundle\DependencyInjection\Compiler\LoaderCompilerPass;
 
+/**
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class KPhoenDoctrineStateMachineBundle extends Bundle
 {
     public function build(ContainerBuilder $container)

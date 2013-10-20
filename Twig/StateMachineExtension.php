@@ -4,6 +4,9 @@ namespace KPhoen\DoctrineStateMachineBundle\Twig;
 
 use KPhoen\DoctrineStateMachineBehavior\Entity\Stateful;
 
+/**
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class StateMachineExtension extends \Twig_Extension
 {
     public function getFunctions()

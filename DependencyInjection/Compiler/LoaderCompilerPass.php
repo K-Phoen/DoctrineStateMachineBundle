@@ -6,6 +6,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class LoaderCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

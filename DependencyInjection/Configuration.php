@@ -5,6 +5,9 @@ namespace KPhoen\DoctrineStateMachineBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
