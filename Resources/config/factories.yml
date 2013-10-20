@@ -1,7 +1,7 @@
 parameters:
     kphoen.state_machine.factory.class: Finite\Factory\SymfonyDependencyInjectionFactory
     kphoen.state_machine.array_loader.class: Finite\Loader\ArrayLoader
-    kphoen.state_machine.class: KPhoen\DoctrineStateMachineBehavior\StateMachine\StateMachine
+    kphoen.state_machine.class: KPhoen\DoctrineStateMachineBehavior\StateMachine\ExtendedStateMachine
 
 services:
     kphoen.state_machine.factory:
@@ -16,3 +16,5 @@ services:
     kphoen.state_machine:
         class: %kphoen.state_machine.class%
         scope: prototype
+        calls:
+            - [setEventDispatcher, ['@event_dispatcher']]
