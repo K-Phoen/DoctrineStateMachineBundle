@@ -6,44 +6,6 @@ Doctrine2 behavior adding a finite state machine in your entities.
 The state machine implementation used is [Finite](https://github.com/yohang/Finite).
 
 
-## Usage
-
-`Stateful` entities have access to their own state machine. See [Finite's
-documentation](https://github.com/yohang/Finite) for more details about it.
-
-All `Stateful` entities must implement the following API:
-  * `setStateMachine(StateMachine $stateMachine)` ;
-  * `getStateMachine()` ;
-  * `getFiniteState()` ;
-  * `setFiniteState($state)`.
-
-Entities using the `StatefulTrait` see the `setStateMachine` and
-`getStateMachine` methods implemented and gain access to the following methods:
-  * `can($transition)`: indicating if the given transition is allowed ;
-  * and magic methods for each available transition (ie: `accept()`, `reject()`, etc).
-
-The bundle also exposes a few Twig helpers:
-
-```jinja
-{# your template ... #}
-
-{% if article|can('reject') %}
-    <a class="btn btn-danger" href="{{ path('article_delete', article) }}">
-        <i class="icon-trash"></i>
-        {{ 'link_reject'|trans }}
-    </a>
-{% endif %}
-
-{# this is strictly equivalent #}
-{% if can(article, 'reject') %}
-    <a class="btn btn-danger" href="{{ path('article_delete', article) }}">
-        <i class="icon-trash"></i>
-        {{ 'link_reject'|trans }}
-    </a>
-{% endif %}
-```
-
-
 ## Configuration
 
 In your `app/config/config.yml` file, define your state machines:
@@ -71,12 +33,19 @@ k_phoen_doctrine_state_machine:
 ```
 
 The state machines configuration is pretty straightforward. In addition to the
-states and transitions, you just have to define the entity class and the state
-column to use.
+states and transitions, you just have to define the entity class and the column
+used to store the state.
 
-**Note:** The entity has to implement the `Stateful` interface. To ease the
-implementation, you can use the `StatefulTrait` that comes bundled with the
-behavior.
+**Important:** the entity has to **implement the `Stateful` interface**.
+
+To ease the implementation, you can use the `StatefulTrait` that comes bundled
+with the behavior.
+
+
+## Usage
+
+`Stateful` entities have access to their own state machine. See [Finite's
+documentation](https://github.com/yohang/Finite) for more details about it.
 
 The `Article` entity below is ready to be used as a `Stateful` entity.
 
@@ -93,32 +62,6 @@ class Article implements Stateful
     use StatefulTrait;
 
     /**
-     * New article, not yet reviewed by anyone.
-     */
-    const STATE_NEW = 'new';
-
-    /**
-     * Article reviewed once, need another review to be validated.
-     */
-    const STATE_FIRST_REVIEW = 'reviewed';
-
-    /**
-     * Article reviewed by at least two person.
-     */
-    const STATE_ACCEPTED = 'accepted';
-
-    /**
-     * Article validated and published.
-     */
-    const STATE_PUBLISHED = 'published';
-
-    /**
-     * Article rejected.
-     */
-    const STATE_REJECTED = 'rejected';
-
-
-    /**
      * define your fields here
      */
 
@@ -126,8 +69,7 @@ class Article implements Stateful
     /**
      * @var string
      */
-    protected $state = self::STATE_NEW;
-
+    protected $state = 'new';
 
     /**
      * Set state
@@ -174,6 +116,80 @@ class Article implements Stateful
         return $this->setState($state);
     }
 }
+```
+
+Entities using the `StatefulTrait` see the `setStateMachine()` and
+`getStateMachine()` methods implemented and gain access to the following
+methods:
+  * `can($transition)`: indicating if the given transition is allowed ;
+  * and a few magic methods, based on the transition allowed by the
+    state-machine:
+      * {TransitionName}(): apply the transition {TransitionName} (ie: `accept()`, `reject()`, etc) ;
+      * can{TransitionName}(): test if the transition {TransitionName} can be applied (ie: `canAccept()`, `canReject()`, etc).
+
+
+## Lifecyle callbacks
+
+If you use the event-aware state-machine (which is the default one used by the
+bundle), the extension provides a listener implementing "lifecyle callbacks"
+for stateful entities.
+
+For each available transition, three methods can be executed:
+  * `pre{TransitionName}()`: called before the transition {TransitionName} is applied ;
+  * `post{TransitionName}()`: called after the transition {TransitionName} is applied ;
+  * `can{TransitionName}()`: called when the state-machine tests if the transition {TransitionName} can be applied.
+
+```php
+<?php
+
+namespace Acme\FooBundle\Entity;
+
+use KPhoen\DoctrineStateMachineBehavior\Entity\Stateful;
+use KPhoen\DoctrineStateMachineBehavior\Entity\StatefulTrait;
+
+class Article implements Stateful
+{
+    // previous code
+
+    public function preAccept()
+    {
+        // your logic here
+    }
+
+    public function postAccept()
+    {
+        // your logic here
+    }
+
+    public function canAccept()
+    {
+        // your logic here
+    }
+}
+```
+
+
+## Twig
+
+The bundle also exposes a few Twig helpers:
+
+```jinja
+{# your template ... #}
+
+{% if article|can('reject') %}
+    <a class="btn btn-danger" href="{{ path('article_delete', article) }}">
+        <i class="icon-trash"></i>
+        {{ 'link_reject'|trans }}
+    </a>
+{% endif %}
+
+{# this is strictly equivalent #}
+{% if can(article, 'reject') %}
+    <a class="btn btn-danger" href="{{ path('article_delete', article) }}">
+        <i class="icon-trash"></i>
+        {{ 'link_reject'|trans }}
+    </a>
+{% endif %}
 ```
 
 
