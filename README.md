@@ -128,7 +128,7 @@ methods:
       * `can{TransitionName}()`: test if the transition {TransitionName} can be applied (ie: `canAccept()`, `canReject()`, etc).
 
 
-``php
+```php
 <?php
 
 $article = new Article();
