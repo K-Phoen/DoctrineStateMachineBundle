@@ -124,8 +124,8 @@ methods:
   * `can($transition)`: indicating if the given transition is allowed ;
   * and a few magic methods, based on the transition allowed by the
     state-machine:
-      * {TransitionName}(): apply the transition {TransitionName} (ie: `accept()`, `reject()`, etc) ;
-      * can{TransitionName}(): test if the transition {TransitionName} can be applied (ie: `canAccept()`, `canReject()`, etc).
+      * `{TransitionName}()`: apply the transition {TransitionName} (ie: `accept()`, `reject()`, etc) ;
+      * `can{TransitionName}()`: test if the transition {TransitionName} can be applied (ie: `canAccept()`, `canReject()`, etc).
 
 
 ## Lifecyle callbacks
@@ -189,6 +189,15 @@ The bundle also exposes a few Twig helpers:
         <i class="icon-trash"></i>
         {{ 'link_reject'|trans }}
     </a>
+{% endif %}
+
+{% if article|isStatus('rejected') %}
+    blabla
+{% endif %}
+
+{# this is strictly equivalent #}
+{% if isStatus(article, 'rejected') %}
+    blabla
 {% endif %}
 ```
 
