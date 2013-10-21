@@ -128,6 +128,20 @@ methods:
       * `can{TransitionName}()`: test if the transition {TransitionName} can be applied (ie: `canAccept()`, `canReject()`, etc).
 
 
+``php
+<?php
+
+$article = new Article();
+
+$article->canAccept();
+$article->canReject();
+$article->can('accept');
+
+$article->accept();
+$article->publish();
+```
+
+
 ## Lifecyle callbacks
 
 If you use the event-aware state-machine (which is the default one used by the
