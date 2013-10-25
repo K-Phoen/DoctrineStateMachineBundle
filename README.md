@@ -126,6 +126,7 @@ methods:
     state-machine:
       * `{TransitionName}()`: apply the transition {TransitionName} (ie: `accept()`, `reject()`, etc) ;
       * `can{TransitionName}()`: test if the transition {TransitionName} can be applied (ie: `canAccept()`, `canReject()`, etc).
+      * `is{StateName}()`: test if the current state is {StatusName} (ie: `isAccepted()`, `isRejected()`, etc).
 
 
 ```php
@@ -139,6 +140,9 @@ $article->can('accept');
 
 $article->accept();
 $article->publish();
+
+$article->isAccepted();
+$article->isRejected();
 ```
 
 
