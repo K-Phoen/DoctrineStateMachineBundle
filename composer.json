@@ -13,7 +13,7 @@
     ],
     "require": {
         "symfony/symfony": ">=2.1.0",
-        "kphoen/doctrine-state-machine": "dev-master"
+        "kphoen/doctrine-state-machine": "~1.0"
     },
     "autoload": {
         "psr-0": { "KPhoen\\DoctrineStateMachineBundle": "" }
