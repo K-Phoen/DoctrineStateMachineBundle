@@ -14,7 +14,6 @@ services:
         public:     false
 
     kphoen.state_machine:
-        class: %kphoen.state_machine.class%
-        scope: prototype
-        calls:
-            - [setEventDispatcher, ['@event_dispatcher']]
+        class:      %kphoen.state_machine.class%
+        arguments:  [ ~, @event_dispatcher ]
+        scope:      prototype
