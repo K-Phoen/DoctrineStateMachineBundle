@@ -2,6 +2,7 @@
 
 namespace KPhoen\DoctrineStateMachineBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -20,11 +21,25 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('k_phoen_doctrine_state_machine');
 
+        $this->addGeneralSection($rootNode);
+        $this->addStateMachinesSection($rootNode);
+
+        return $treeBuilder;
+    }
+
+    protected function addGeneralSection(ArrayNodeDefinition $rootNode)
+    {
         $rootNode
             ->children()
                 ->booleanNode('auto_injection')->defaultTrue()->end()
                 ->booleanNode('auto_validation')->defaultTrue()->end()
+            ->end();
+    }
 
+    protected function addStateMachinesSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
                 ->arrayNode('state_machines')
                     ->prototype('array')
                         ->children()
@@ -63,12 +78,35 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
 
+                            ->arrayNode('callbacks')
+                                ->children()
+                                    ->arrayNode('before')
+                                        ->prototype('array')
+                                            ->children()
+                                                ->scalarNode('on')->end()
+                                                ->variableNode('do')->end()
+                                                ->variableNode('from')->end()
+                                                ->variableNode('to')->end()
+                                            ->end()
+                                        ->end()
+                                    ->end()
+                                    ->arrayNode('after')
+                                        ->prototype('array')
+                                            ->children()
+                                                ->scalarNode('on')->end()
+                                                ->variableNode('do')->end()
+                                                ->variableNode('from')->end()
+                                                ->variableNode('to')->end()
+                                            ->end()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+
                         ->end()
                     ->end()
                 ->end()
             ->end()
         ;
-
-        return $treeBuilder;
     }
 }
