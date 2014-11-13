@@ -21,6 +21,11 @@ class LoaderCompilerPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('state_machine.loader') as $id => $attributes) {
             $definition->addMethodCall('addLoader', array(new Reference($id)));
+
+            // setLazy method wasn't available before 2.3, FiniteBundle requirement is ~2.1
+            if (method_exists($definition, 'setLazy')) {
+                $definition->setLazy(true);
+            }
         }
     }
 }
