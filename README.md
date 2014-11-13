@@ -224,8 +224,8 @@ The bundle also exposes a few Twig helpers:
 
 Install the behavior adding `kphoen/doctrine-state-machine-bundle` to your composer.json or from CLI:
 
-```
-$ php composer.phar require 'kphoen/doctrine-state-machine-bundle:@stable'
+```console
+php composer.phar require kphoen/doctrine-state-machine-bundle
 ```
 
 
