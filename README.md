@@ -209,12 +209,12 @@ The bundle also exposes a few Twig helpers:
     </a>
 {% endif %}
 
-{% if article|isStatus('rejected') %}
+{% if article|is_status('rejected') %}
     blabla
 {% endif %}
 
 {# this is strictly equivalent #}
-{% if isStatus(article, 'rejected') %}
+{% if is_status(article, 'rejected') %}
     blabla
 {% endif %}
 ```
