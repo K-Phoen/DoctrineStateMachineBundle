@@ -37,13 +37,11 @@ class KPhoenDoctrineStateMachineExtension extends Extension
 
         // disable useless listeners
         if (!$config['auto_injection']) {
-            $container->getDefinition('kphoen.state_machine.listener.injection')
-                ->clearTag('doctrine.event_subscriber');
+            $container->removeDefinition('kphoen.state_machine.listener.injection');
         }
 
         if (!$config['auto_validation']) {
-            $container->getDefinition('kphoen.state_machine.listener.persistence')
-                ->clearTag('doctrine.event_subscriber');
+            $container->removeDefinition('kphoen.state_machine.listener.persistence');
         }
     }
 
