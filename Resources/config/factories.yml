@@ -1,7 +1,7 @@
 parameters:
     kphoen.state_machine.factory.class: KPhoen\DoctrineStateMachineBundle\Factory\Factory
     kphoen.state_machine.array_loader.class: Finite\Loader\ArrayLoader
-    kphoen.state_machine.class: KPhoen\DoctrineStateMachineBehavior\StateMachine\ExtendedStateMachine
+    kphoen.state_machine.class: KPhoen\DoctrineStateMachineBundle\StateMachine\ExtendedStateMachine
 
 services:
     kphoen.state_machine.factory:
