@@ -225,7 +225,21 @@ The bundle also exposes a few Twig helpers:
 Install the behavior adding `kphoen/doctrine-state-machine-bundle` to your composer.json or from CLI:
 
 ```console
-php composer.phar require kphoen/doctrine-state-machine-bundle
+composer require kphoen/doctrine-state-machine-bundle
+```
+
+Than register the bundle in your `app/AppKernel.php` file:
+
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new KPhoen\DoctrineStateMachineBundle\KPhoenDoctrineStateMachineBundle(),
+        // ...
+    );
+}
 ```
 
 
