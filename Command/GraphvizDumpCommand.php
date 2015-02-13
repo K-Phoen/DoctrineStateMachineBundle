@@ -36,11 +36,8 @@ class GraphvizDumpCommand extends ContainerAwareCommand
 
     private function getStateMachine($name)
     {
-        $loader = $this->getContainer()->get('kphoen.state_machine.loader.' . $name);
-        $stateMachine = $this->getContainer()->get('kphoen.state_machine');
+        $factory = $this->getContainer()->get('kphoen.state_machine.factory');
 
-        $loader->load($stateMachine);
-
-        return $stateMachine;
+        return $factory->getNamed($name);
     }
 }

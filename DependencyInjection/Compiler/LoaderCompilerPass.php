@@ -20,7 +20,7 @@ class LoaderCompilerPass implements CompilerPassInterface
         $definition = $container->getDefinition('kphoen.state_machine.factory');
 
         foreach ($container->findTaggedServiceIds('state_machine.loader') as $id => $attributes) {
-            $definition->addMethodCall('addLoader', array(new Reference($id)));
+            $definition->addMethodCall('addNamedLoader', array($attributes[0]['state_machine'], new Reference($id)));
 
             // setLazy method wasn't available before 2.3, FiniteBundle requirement is ~2.1
             if (method_exists($definition, 'setLazy')) {
