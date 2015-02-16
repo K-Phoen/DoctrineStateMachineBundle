@@ -51,7 +51,7 @@ class KPhoenDoctrineStateMachineExtension extends Extension
             $container
                 ->setDefinition('kphoen.state_machine.loader.'.$name, new DefinitionDecorator('kphoen.state_machine.array_loader'))
                 ->replaceArgument(0, $config)
-                ->addTag('state_machine.loader')
+                ->addTag('state_machine.loader', array('state_machine' => $name))
             ;
 
             $persistenceListenerDef->addMethodCall('registerClass', array($config['class'], $config['property']));
