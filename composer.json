@@ -12,14 +12,21 @@
         }
     ],
     "require": {
-        "symfony/symfony": ">=2.1.0",
+        "symfony/yaml": "~2.3",
+        "symfony/framework-bundle": "~2.3",
+        "doctrine/doctrine-bundle": "~1.2",
         "kphoen/doctrine-state-machine": "~1.0"
     },
+    "require-dev": {
+        "symfony/console": "~2.3",
+        "symfony/twig-bundle": "~2.3"
+    },
     "suggest": {
-        "alom/graphviz": "To generate Graphviz views of state machines"
+        "alom/graphviz": "To generate Graphviz views of state machines",
+        "symfony/console": "To execute the command to generate Graphviz views of state machines",
+        "symfony/twig-bundle": "To integrate with Twig"
     },
     "autoload": {
-        "psr-0": { "KPhoen\\DoctrineStateMachineBundle": "" }
-    },
-    "target-dir": "KPhoen/DoctrineStateMachineBundle"
+        "psr-4": { "KPhoen\\DoctrineStateMachineBundle\\": "" }
+    }
 }
