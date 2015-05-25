@@ -179,7 +179,7 @@ class Article implements Stateful
         // your logic here
     }
 
-    public function canAccept()
+    public function onCanAccept()
     {
         // your logic here
     }
