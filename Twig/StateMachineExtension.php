@@ -14,9 +14,9 @@ class StateMachineExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('can', array($this, 'can')),
             new \Twig_SimpleFunction('is_status', array($this, 'isStatus')),
-            // undocumented
             new \Twig_SimpleFunction('has_property', array($this, 'hasProperty')),
             new \Twig_SimpleFunction('property', array($this, 'getProperty')),
+            // undocumented
             new \Twig_SimpleFunction('current_state', array($this, 'getCurrentState')),
         );
     }
@@ -26,9 +26,9 @@ class StateMachineExtension extends \Twig_Extension
         return array(
             'can'           => new \Twig_Filter_Method($this, 'can'),
             'is_status'     => new \Twig_Filter_Method($this, 'isStatus'),
-            // undocumented
             'has_property'  => new \Twig_Filter_Method($this, 'hasProperty'),
             'property'  => new \Twig_Filter_Method($this, 'getProperty'),
+            // undocumented
             'current_state' => new \Twig_Filter_Method($this, 'getCurrentState'),
         );
     }
