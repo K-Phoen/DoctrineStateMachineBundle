@@ -13,6 +13,7 @@ class StateMachineExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('can', array($this, 'can')),
+            new \Twig_SimpleFunction('isStatus', array($this, 'isStatusCamelCase')), // @deprecated
             new \Twig_SimpleFunction('is_status', array($this, 'isStatus')),
             new \Twig_SimpleFunction('has_property', array($this, 'hasProperty')),
             new \Twig_SimpleFunction('property', array($this, 'getProperty')),
@@ -25,9 +26,10 @@ class StateMachineExtension extends \Twig_Extension
     {
         return array(
             'can'           => new \Twig_Filter_Method($this, 'can'),
+            'isStatus'      => new \Twig_Filter_Method($this, 'isStatusCamelCase'), // @deprecated
             'is_status'     => new \Twig_Filter_Method($this, 'isStatus'),
             'has_property'  => new \Twig_Filter_Method($this, 'hasProperty'),
-            'property'  => new \Twig_Filter_Method($this, 'getProperty'),
+            'property'      => new \Twig_Filter_Method($this, 'getProperty'),
             // undocumented
             'current_state' => new \Twig_Filter_Method($this, 'getCurrentState'),
         );
@@ -36,6 +38,13 @@ class StateMachineExtension extends \Twig_Extension
     public function can($entity, $transition)
     {
         return $this->getCurrentState($entity)->can($transition);
+    }
+
+    public function isStatusCamelCase($entity, $status)
+    {
+        @trigger_error(get_class($this).': The "isStatus" call is deprecated, use "is_status" instead.', E_USER_DEPRECATED);
+
+        return $this->isStatus($entity, $status);
     }
 
     public function isStatus($entity, $status)
