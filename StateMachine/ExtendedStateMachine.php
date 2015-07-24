@@ -45,6 +45,11 @@ class ExtendedStateMachine extends BaseExtendedStateMachine
         // assert that the given state exists
         $this->getState($state);
 
+        // state jumping to current state is allowed as it does nothing
+        if ($this->currentState->getName() == $state) {
+            return true;
+        }
+
         $transitions = $this->getMatchingTransitions($this->currentState->getName(), $state);
 
         return count($transitions) == 1;
@@ -54,8 +59,6 @@ class ExtendedStateMachine extends BaseExtendedStateMachine
      * Moves to the given state if allowed.
      *
      * @param string|StateInterface $state
-     *
-     * @return bool
      */
     public function jumpToState($state)
     {
@@ -65,6 +68,11 @@ class ExtendedStateMachine extends BaseExtendedStateMachine
 
         if (!$this->canJumpToState($state)) {
             throw new StateException(sprintf('Can not jump from state "%s" to "%s".',$this->currentState->getName(), $state->getName()));
+        }
+
+        // do nothing if we try to jump to current state
+        if ($state == $this->currentState) {
+            return;
         }
 
         $transitions = $this->getMatchingTransitions($this->currentState->getName(), $state);
