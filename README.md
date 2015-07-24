@@ -211,9 +211,9 @@ use KPhoen\DoctrineStateMachineBundle\Listener\AbstractSubscriber;
 
 class ArticleSubscriber extends AbstractSubscriber
 {
-    public function getEntityClass()
+    public function supportsObject($object)
     {
-        return 'Acme\FooBundle\Entity\Article';
+        return $object instanceof \Acme\FooBundle\Entity\Article;
     }
 
     public function preAccept()
