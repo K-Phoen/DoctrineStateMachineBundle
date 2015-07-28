@@ -50,7 +50,7 @@ class ExtendedStateMachine extends BaseExtendedStateMachine
 
         $matchingTransitions = $this->getMatchingTransitions($initialState, $targetedState);
 
-        if ($matchingTransitions != 1) {
+        if (count($matchingTransitions) != 1) {
             throw new AmbiguousJumpException();
         }
 
