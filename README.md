@@ -186,6 +186,52 @@ class Article implements Stateful
 }
 ```
 
+### Using a service
+
+You can put the state logic outside of the entity using a listener on Finite
+events. The extension provides an abstract EventSubcriber with the same methods
+as the "lifecyle callbacks" listener.
+
+You need to declare a service and extend the AbstractSubcriber.
+
+```yaml
+services:
+    article_workflow_subscriber:
+        class: Acme\FooBundle\Workflow\ArticleSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+```
+
+```php
+<?php
+
+namespace Acme\FooBundle\Workflow;
+
+use KPhoen\DoctrineStateMachineBundle\Listener\AbstractSubscriber;
+
+class ArticleSubscriber extends AbstractSubscriber
+{
+    public function supportsObject($object)
+    {
+        return $object instanceof \Acme\FooBundle\Entity\Article;
+    }
+
+    public function preAccept()
+    {
+        // your logic here
+    }
+
+    public function postAccept()
+    {
+        // your logic here
+    }
+
+    public function canAccept()
+    {
+        // your logic here
+    }
+}
+```
 
 ## Twig
 
@@ -209,12 +255,12 @@ The bundle also exposes a few Twig helpers:
     </a>
 {% endif %}
 
-{% if article|isStatus('rejected') %}
+{% if article|is_status('rejected') %}
     blabla
 {% endif %}
 
 {# this is strictly equivalent #}
-{% if isStatus(article, 'rejected') %}
+{% if is_status(article, 'rejected') %}
     blabla
 {% endif %}
 ```
