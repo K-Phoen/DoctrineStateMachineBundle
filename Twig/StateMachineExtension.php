@@ -20,8 +20,8 @@ class StateMachineExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'can'       => new \Twig_Filter_Method($this, 'can'),
-            'isStatus'  => new \Twig_Filter_Method($this, 'isStatus'),
+            new \Twig_SimpleFilter('can', array($this, 'can')),
+            new \Twig_SimpleFilter('isStatus', array($this, 'isStatus')),
         );
     }
 
