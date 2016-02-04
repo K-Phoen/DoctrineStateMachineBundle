@@ -16,4 +16,4 @@ services:
     kphoen.state_machine:
         class:      %kphoen.state_machine.class%
         arguments:  [ ~, @event_dispatcher ]
-        scope:      prototype
+        shared:     false
