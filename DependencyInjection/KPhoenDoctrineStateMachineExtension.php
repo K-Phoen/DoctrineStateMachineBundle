@@ -5,6 +5,7 @@ namespace KPhoen\DoctrineStateMachineBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -42,6 +43,14 @@ class KPhoenDoctrineStateMachineExtension extends Extension
 
         if (!$config['auto_validation']) {
             $container->removeDefinition('kphoen.state_machine.listener.persistence');
+        }
+
+        // set the kphoen.state_machine service as "not shared" (or scope: prototype)
+        $stateMachineDefinition = $container->getDefinition('kphoen.state_machine');
+        if (method_exists($stateMachineDefinition, 'setShared')) {
+            $stateMachineDefinition->setShared(false);
+        } else {
+            $stateMachineDefinition->setScope(ContainerInterface::SCOPE_PROTOTYPE);
         }
     }
 

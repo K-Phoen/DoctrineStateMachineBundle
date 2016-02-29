@@ -16,4 +16,6 @@ services:
     kphoen.state_machine:
         class:      %kphoen.state_machine.class%
         arguments:  [ ~, @event_dispatcher ]
-        scope:      prototype
+        # will be flagged In the KPhoenDoctrineStateMachineExtension as
+        # "scope: prototype" or "shared: false", according to the current
+        # Symfony version
