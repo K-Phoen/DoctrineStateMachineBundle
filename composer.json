@@ -12,7 +12,6 @@
         }
     ],
     "require": {
-        "symfony/yaml": "~2.3",
         "symfony/framework-bundle": "~2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "kphoen/doctrine-state-machine": "~1.0"
