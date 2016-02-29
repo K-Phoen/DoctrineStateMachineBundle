@@ -255,6 +255,10 @@ The bundle also exposes a few Twig helpers:
     </a>
 {% endif %}
 
+{% if current_state(article).isFinal %}
+    blabla
+{% endif %}
+
 {% if article|is_status('rejected') %}
     blabla
 {% endif %}
@@ -262,6 +266,15 @@ The bundle also exposes a few Twig helpers:
 {# this is strictly equivalent #}
 {% if is_status(article, 'rejected') %}
     blabla
+{% endif %}
+
+{% if article|has_property('printable') %}
+    {{ article|property('printable') ? 'I can print' : 'I CANNOT print' }}
+{% endif %}
+
+{# this is strictly equivalent #}
+{% if has_property(article, 'printable') %}
+    {{ property(article, 'printable') ? 'I can print' : 'I CANNOT print' }}
 {% endif %}
 ```
 
