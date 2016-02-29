@@ -28,6 +28,8 @@ class GraphvizDumpCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->checkRequirements();
+
         $stateMachine = $this->getStateMachine($input->getArgument('state-machine'));
         $visualisation = new Graphviz();
 
@@ -39,5 +41,12 @@ class GraphvizDumpCommand extends ContainerAwareCommand
         $factory = $this->getContainer()->get('kphoen.state_machine.factory');
 
         return $factory->getNamed($name);
+    }
+
+    private function checkRequirements()
+    {
+        if (!class_exists('Alom\Graphviz\Digraph')) {
+            throw new \RuntimeException('The state-machine:dump:graphiz command relies on the "alom/graphviz" package. It MUST be installed for this command to work.');
+        }
     }
 }
