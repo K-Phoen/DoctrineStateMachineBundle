@@ -25,9 +25,9 @@ class StateMachineExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('can', array($this, 'can')),
             new \Twig_SimpleFilter('isStatus', array($this, 'isStatus')),
-            new \Twig_Filter_Method('property', array($this, 'getProperty')),
-            new \Twig_Filter_Method('has_property', array($this, 'hasProperty')),
-            new \Twig_Filter_Method('current_state', array($this, 'getCurrentState')),
+            new \Twig_Filter_Method($this, 'property', array('getProperty')),
+            new \Twig_Filter_Method($this, 'has_property', array('hasProperty')),
+            new \Twig_Filter_Method($this, 'current_state', array('getCurrentState')),
         );
     }
 
