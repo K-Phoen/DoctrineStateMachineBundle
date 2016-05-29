@@ -5,6 +5,12 @@ Doctrine2 behavior adding a finite state machine in your entities.
 
 The state machine implementation used is [Finite](https://github.com/yohang/Finite).
 
+## Status
+
+This project is **DEPRECATED** and should NOT be used. 
+
+If someone magically appears and wants to maintain this project, I'll gladly give access to this repository.
+
 
 ## Configuration
 
