@@ -6,13 +6,13 @@ parameters:
 services:
     # doctrine listeners
     kphoen.state_machine.listener.persistence:
-        class:      %kphoen.state_machine.listener.persistence.class%
+        class:      "%kphoen.state_machine.listener.persistence.class%"
         arguments:  [ "@kphoen.state_machine.factory" ]
         tags:
             - { name: doctrine.event_subscriber }
 
     kphoen.state_machine.listener.injection:
-        class:      %kphoen.state_machine.listener.injection.class%
+        class:      "%kphoen.state_machine.listener.injection.class%"
         arguments:  [ "@kphoen.state_machine.factory" ]
         tags:
             - { name: doctrine.event_subscriber }
@@ -20,6 +20,6 @@ services:
 
     # finite listeners
     kphoen.state_machine.listener.callbacks:
-        class:      %kphoen.state_machine.listener.callbacks.class%
+        class:      "%kphoen.state_machine.listener.callbacks.class%"
         tags:
             - { name: kernel.event_subscriber }
