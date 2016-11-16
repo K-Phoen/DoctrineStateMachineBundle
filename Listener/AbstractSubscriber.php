@@ -55,7 +55,7 @@ abstract class AbstractSubscriber implements EventSubscriberInterface
     public function onTestTransition(TransitionEvent $event)
     {
         $object = $event->getStateMachine()->getObject();
-        $result = $this->callCallback($object, 'can', $event->getTransition()->getName());
+        $result = $this->callCallback($object, 'can', $event);
 
         if ($result === false) {
             $event->reject();
@@ -68,13 +68,13 @@ abstract class AbstractSubscriber implements EventSubscriberInterface
     public function onPreTransition(TransitionEvent $event)
     {
         $object = $event->getStateMachine()->getObject();
-        $this->callCallback($object, 'pre', $event->getTransition()->getName());
+        $this->callCallback($object, 'pre', $event);
     }
 
     public function onPostTransition(TransitionEvent $event)
     {
         $object = $event->getStateMachine()->getObject();
-        $this->callCallback($object, 'post', $event->getTransition()->getName());
+        $this->callCallback($object, 'post', $event);
     }
 
     /**
@@ -85,8 +85,9 @@ abstract class AbstractSubscriber implements EventSubscriberInterface
      * @param string $transitionName
      * @return mixed
      */
-    protected function callCallback($object, $callbackPrefix, $transitionName)
+    protected function callCallback($object, $callbackPrefix, $event)
     {
+        $transitionName = is_string($event) ? 'initialize' : $event->getTransition()->getName();
         $camelCasedName = Inflector::camelize($transitionName);
         $methodName = $callbackPrefix . $camelCasedName;
 
@@ -98,6 +99,6 @@ abstract class AbstractSubscriber implements EventSubscriberInterface
             return;
         }
 
-        return call_user_func(array($this, $methodName), $object);
+        return call_user_func(array($this, $methodName), $object, $event->getProperties());
     }
 }
